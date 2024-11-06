@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Owner extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'company_id',
+        'name',
+        'mobile_number',
+        'email'
+    ];
 }
