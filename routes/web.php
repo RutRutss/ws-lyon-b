@@ -3,6 +3,7 @@
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,10 @@ Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::post('/auth', [UserController::class, 'authen'])->name('auth');
 
+Route::get('/products.json', [ProductController::class, 'all_products']);
+Route::get('/products/{gtin}.json', [ProductController::class, 'show_product']);
+Route::get('/products.json/{keyword}', [ProductController::class, 'query_product']);
+
 Route::middleware('isadmin')->group(function () {
     Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
     Route::get('/company', [CompanyController::class, 'show'])->name('company');
@@ -34,10 +39,13 @@ Route::middleware('isadmin')->group(function () {
     Route::get('/product/{gtin}', [ProductController::class, 'show'])->name('product');
     Route::get('/product/{gtin}/hide', [ProductController::class, 'hide_product'])->name('product.hide');
     Route::get('/product/{gtin}/delete', [ProductController::class, 'delete'])->name('product.delete');
-
+    Route::get('products/new', [ProductController::class, 'create'])->name('product.create');
     Route::get('/products', [ProductController::class, 'index'])->name('products');
+    Route::get('/product/{gtin}/image/delete', [ProductController::class, 'delete_image'])->name('product.image.delete');
 
     Route::post('/company', [CompanyController::class, 'store'])->name('company.store');
+    Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+    Route::post('/product/{gtin}/image/update', [ProductController::class, 'update_image'])->name('product.image.update');
 
     Route::put('/company/{id}', [CompanyController::class, 'update'])->name('company.update');
 });

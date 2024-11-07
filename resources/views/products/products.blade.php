@@ -9,7 +9,7 @@
         @endif
         <h1 style="">All Product</h1>
         <div class="">
-            <a style="color:blue" href="{{ route('company.create') }}">New Product</a> |
+            <a style="color:blue" href="{{ route('product.create') }}">New Product</a> |
             <a href="{{ route('companies') }}">All Companies</a> |
             <a style="color:red" href="{{ route('logout') }}">logout</a>
         </div>
@@ -19,6 +19,16 @@
         @if ($products_show->isNotEmpty())
             @foreach ($products_show as $product_show)
                 <div class="" style="width: 20rem; height: auto; border:1px solid; margin: 10px; padding:1rem">
+
+                    @if ($product_show->img)
+                        <img src="{{ asset('public/storage/images/' . $product_show->img) }}" alt="Product Image"
+                            style="width:100%; height:auto">
+                    @else
+                        <img src="{{ asset('public/storage/images/default.jpg') }}" alt="Product Image"
+                            style="width:100%; height:auto">
+                    @endif
+
+
                     <strong>{{ $product_show->name_en }}</strong>
                     <p>GTIN : {{ $product_show->gtin }}</p>
                     <p>Desc : {{ $product_show->description_en }}</p>
@@ -38,11 +48,20 @@
         @if ($products_hide->isNotEmpty())
             @foreach ($products_hide as $product_hide)
                 <div class="" style="width: 20rem; height: auto; border:1px solid; margin: 10px; padding:1rem">
+
+                    @if ($product_hide->img)
+                        <img src="{{ asset('public/storage/images/' . $product_hide->img) }}" alt="Product Image"
+                            style="width:100%; height:auto">
+                    @else
+                        <img src="{{ asset('public/storage/images/default.jpg') }}" alt="Product Image"
+                            style="width:100%; height:auto">
+                    @endif
+
                     <strong>{{ $product_hide->name_en }}</strong>
                     <p>GTIN : {{ $product_hide->gtin }}</p>
                     <p>Desc : {{ $product_hide->description_en }}</p>
                     <p>By Company : {{ $product_hide->company_name }}</p>
-                    <a style="color:green" href="{{ route('company', ['id' => $product_hide->id]) }}">View</a> |
+                    <a style="color:green" href="{{ route('product', ['gtin' => $product_hide->gtin]) }}">View</a> |
                     {{-- <a href="{{ route('company.edit', ['id' => $product_hide->id]) }}">Edit</a> | --}}
                     <a href="{{ route('product.hide', ['gtin' => $product_hide->gtin]) }}">Hide/Unhide</a>
                     <a href="{{ route('product.delete', ['gtin' => $product_hide->gtin]) }}" style="color: red">Delete</a>
