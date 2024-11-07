@@ -128,13 +128,15 @@ class CompanyController extends Controller
                 'is_hide' => !$company->is_hide
             ]);
 
-            foreach ($products as $product) {
-                $product->update([
-                    'is_hide' => $company->is_hide
-                ]);
+            if ($company->is_hide == 1) {
+                foreach ($products as $product) {
+                    $product->update([
+                        'is_hide' => 1
+                    ]);
+                }
             }
 
-            return redirect('companies');
+            return redirect('companies')->with('message', 'Update Success Company ' . $company->company_name . ' Status is ' . ($company->is_hide == 0 ? 'show' : 'hide'));
         } catch (Exception $e) {
             return redirect('companies')->with('message', 'Update Status Error.');
         }

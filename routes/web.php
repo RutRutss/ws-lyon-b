@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,11 @@ Route::middleware('isadmin')->group(function () {
     Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
     Route::get('/company/{id}/edit', [CompanyController::class, 'edit'])->name('company.edit');
     Route::get('/company/{id}/hide', [CompanyController::class, 'hide_company'])->name('company.hide');
+    Route::get('/product/{gtin}', [ProductController::class, 'show'])->name('product');
+    Route::get('/product/{gtin}/hide', [ProductController::class, 'hide_product'])->name('product.hide');
+    Route::get('/product/{gtin}/delete', [ProductController::class, 'delete'])->name('product.delete');
+
+    Route::get('/products', [ProductController::class, 'index'])->name('products');
 
     Route::post('/company', [CompanyController::class, 'store'])->name('company.store');
 

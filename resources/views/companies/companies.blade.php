@@ -4,11 +4,13 @@
 
 @section('content')
     <div class="nav" style="margin-bottom: 20px">
+        @if (session('message'))
+            <div class="">*** {{ session('message') }} ***</div>
+        @endif
         <h1 style="">All Companies</h1>
         <div class="">
-            <a style="color:blue" href="{{ route('company.create') }}">New Company</a>
-        </div>
-        <div class="">
+            <a style="color:blue" href="{{ route('company.create') }}">New Company</a> |
+            <a href="{{ route('products') }}">All Products</a> |
             <a style="color:red" href="{{ route('logout') }}">logout</a>
         </div>
     </div>
