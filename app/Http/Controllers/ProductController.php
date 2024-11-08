@@ -282,4 +282,29 @@ class ProductController extends Controller
 
         return response($response, 200);
     }
+
+    public function show_gtin()
+    {
+        return view('public.gtin');
+    }
+
+    public function check_gtin(Request $request)
+    {
+
+        $gtins = explode("\n", $request->input('gtins'));
+
+        $results = [];
+
+        foreach ($gtins as $gtin) {
+            $gtin = trim($gtin);
+            $isValid = Product::where('gtin', $gtin)->where('is_hide', 0)->exists();
+
+            $results[] = [
+                'gtin' => $gtin,
+                'status' => $isValid ? 'Valid' : 'Invalid'
+            ];
+        }
+
+        return redirect()->back()->with('results', $results);
+    }
 }

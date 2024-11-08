@@ -30,6 +30,9 @@ Route::get('/products.json', [ProductController::class, 'all_products']);
 Route::get('/products/{gtin}.json', [ProductController::class, 'show_product']);
 Route::get('/products.json/{keyword}', [ProductController::class, 'query_product']);
 
+Route::get('/gtin', [ProductController::class, 'show_gtin']);
+Route::post('/gtin/check', [ProductController::class, 'check_gtin'])->name('gtin.check');
+
 Route::middleware('isadmin')->group(function () {
     Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
     Route::get('/company', [CompanyController::class, 'show'])->name('company');
