@@ -59,7 +59,6 @@ class ProductController extends Controller
     {
         $product = Product::where('gtin', $gtin)->where('is_hide', 1)->first();
 
-
         if ($product) {
             $product->delete();
             return redirect('products')->with('message', $product->name_en . ' GTIN : ' . $product->gtin . ' Delete Successfully.');
